@@ -1,0 +1,9 @@
+WMIC/ open in cmd.exe
+
+for /F %i in (Hosts.txt) do @echo scanning %i & 
+    wmic /node:%i process get name, proccessid, parentprocessid,
+	treadcount, handlecount >> %i.txt &
+	wmic /node:%i enviroment list brief >> %i.txt &
+	wmic /node:%i nicconfig get MACAdress, DefaultIPGateway,IPAdress, IPSubnet, DNSHostName, DNSDomain >> %i.txt &
+	wmic /node:%i service get Name, Caption, State, ServiceType, StartMode, pathname >> %i.txt
+	wmic /node:%i gfe get description, FixComments, HotFixID, InstalledBy, InstalledOn? ServicePackInEffect >> %i.txt
